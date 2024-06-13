@@ -1,0 +1,17 @@
+services:
+  git-sync:
+    image: registry.k8s.io/git-sync/git-sync:v4.2.3
+    container_name: git-sync
+    user: "0:0"
+    environment:
+      - GITSYNC_REPO=${REPOSITORY_URL}
+      - GITSYNC_REF=${BRANCH}
+      - GITSYNC_ROOT=/tmp/git
+      - GITSYNC_LINK=repo
+      - GITSYNC_WAIT=30
+      - GITSYNC_SSH_KNOWN_HOSTS=false
+    volumes:
+      - ./repo:/tmp/git
+
+volumes:
+  repo:
